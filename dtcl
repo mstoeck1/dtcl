@@ -1,0 +1,96 @@
+#!/bin/bash
+
+#####################################################
+#
+#  dtcl - distributed commandline interface
+#
+#  usage: dtcl [options] [-c command]
+#
+#  version: 0.1
+#  author : michael stöckel (michael.stoeckel@web.de)
+#
+#####################################################
+
+# defaults
+version="0.1"
+username="root"
+directory="~" # user home
+
+# variables
+ping=false
+comm=false
+file=false
+scan=false
+test=false
+hostnames=()
+command=""
+files=()
+parameters=$@
+paramsize=$#
+
+while getopts l:g:h:c:f:d:ptkv? flag
+do
+    case "${flag}" in
+        l) username=${OPTARG};;
+        h) IFS=',' read -r -a hosts <<< ${OPTARG};
+			for host in ${hosts[@]}; do
+				hostnames+=($host);
+			done;;
+        g) groupfile=${OPTARG};
+			for host in $(cat $groupfile); do
+				hostnames+=($host);
+			done;;
+        c) command=${OPTARG};
+			comm=true;;
+		f) file=true;
+			IFS=',' read -r -a files <<< ${OPTARG};;
+		d) directory=${OPTARG};;
+		p) ping=true;;
+		k) scan=true;;
+		t) test=true;;
+		v) echo "dtcl version $version";
+		   exit 0;;
+		?) echo "usage: dtcl [-v] [-h <hosts>] [-g <hostsfile>] [-l userid]"
+		   echo "            [-c command] [-f <files>] [-d targetdirectory]"
+		   echo "            [-p] [-k] [-t] [-?]"
+		   exit 0;;
+    esac
+done
+
+if [ -z "$hostnames" ]; then
+	echo "error - no hosts specified, use -h or -g"
+	exit -1
+fi
+
+# -k option, scans the hosts keys exits afterwards
+if [ $scan = true ]; then
+	for host in ${hostnames[@]}; do
+		ssh-keyscan -t rsa -H $host 
+	done
+	exit 0
+fi
+
+# -t option, only lists the target hosts, exits afterwards
+if [ $test = true ]; then
+	for host in ${hostnames[@]}; do
+		echo $host 
+	done
+	exit 0
+fi
+
+# main handler, this options can be used in conjunction
+for host in ${hostnames[@]}; do
+	if [ $file = true ]; then
+    	for f in ${files[@]}; do
+			scp $f $username@$host:$directory;
+		done
+	fi;
+
+	if [ $comm = true ]; then
+		echo -n "$host:  "; ssh $username@$host "$command"; 
+	fi;
+
+	if [ $ping = true ]; then
+		echo -n "$host: "; ssh $username@$host "echo 'pong'";
+	fi;
+done
