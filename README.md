@@ -1,5 +1,5 @@
 # dtcl
-_Distributed Commandline Interface written in bash_
+_Distributed Telekom Command Line written in bash_
 
 The **dtcl** utility executes commands on multiple servers, using ssh to make the connections. The servers are targeted serially. You run the **dtcl** utility on the "local" server and the commands specified in **dtcl** execute on the target servers.
 
