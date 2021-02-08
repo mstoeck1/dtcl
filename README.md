@@ -33,37 +33,39 @@ Note that, when you use this command, you will have to enter your password twice
 | `-p` | Ping: checks the ssh-connection to the target servers. |
 | `-k` | Keyscan: gathers the ssh-hostkeys from the target servers. To append them to the known_hosts file use a redirect e.g. `>> ~/.ssh/known_hosts`. |
 | `-t` | Lists the target servers. |
+| `-v` | Prints the version info |
+| `-?` | Help |
 
 ### Examples
 
-- Pings one server using the user tux.
+- Pings one server using the user tux:
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`dtcl -l tux -h linux-1 -p`
 
-- List all target servers in groupfile all_linux_servers
+- List all target servers in groupfile all_linux_servers:
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`dtcl -g all_linux_servers -t`
 
-- Execute the date command with the default user _root_ on host linux-1
+- Execute the date command with the default user _root_ on host linux-1:
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`dtcl -h linux-1 -c date`
 
-- Execute the uptime command on servers linux-1 and linux-2 with the user tux
+- Execute the uptime command on servers linux-1 and linux-2 with the user tux:
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`dtcl -h linux-1,linux-2 -l tux -c uptime`
 
-- Execute a command on all servers in groupfile all_linux_servers
+- Execute a command on all servers in groupfile all_linux_servers:
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`dtcl -l tux -g all_linux_servers -c "df -h | grep root"`
 
-- Copy two files into the home directoy of user tux on two servers
+- Copy two files into the home directoy of user tux on two servers:
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`dtcl -l tux -h linux1,linux-2 -f myfile1,myfile2`
 
-- Copy a file to the directory _/var/www/html_ for all servers in the goupfile _webservers_
+- Copy a file to the directory _/var/www/html_ for all servers in the goupfile _webservers_:
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`dtcl -l www -g webservers -f myfile1.html -d /var/www/html`
 
-- Fetch the host keys from all servers in group all_linux_servers and appends them to the local users _known_hosts_ file. 
+- Fetch the host keys from all servers in group all_linux_servers and appends them to the local users _known_hosts_ file: 
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`dtcl -l tux -g all_linux_servers -k >> ~/.ssh/known_hosts`
