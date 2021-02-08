@@ -2,7 +2,7 @@
 
 #####################################################
 #
-#  dtcl - distributed commandline interface
+#  dtcl - distributed telekom command line interface
 #
 #  usage: dtcl [options] [-c command]
 #
