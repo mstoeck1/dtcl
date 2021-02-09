@@ -10,7 +10,7 @@ The **dtcl** utility works best with a passwordless Secure Shell (SSH) between t
 ### ssh setup
 
 To simplify setup of the ssh connect you can use the `-k` option to fetch the hosts-keys from the target servers and append them to the known_hosts file using a redirect e.g. `>> ~/.ssh/known_hosts`.
-After fetching the host-keys you can integrate your ssh-key to the target servers _authorized_keys_ filed using:<br> 
+After fetching the host-keys you can integrate your ssh-key to the target servers _authorized_keys_ file using:<br> 
 `dtcl -l tux -g serverlist -f ~/.ssh/id_rsa.pub -c "cat id_rsa.pub >> ~/.ssh/authorized_keys"`.<br> 
 Note that, when you use this command, you will have to enter your password twice for each server, one time for the file copy and one time for the command.
 
