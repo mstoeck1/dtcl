@@ -27,6 +27,7 @@ Note that, when you use this command, you will have to enter your password twice
 | `-h hosts` | Specifies a comma separated list of hosts where the command is executed. Can be used in conjunction with `-g`. |
 | `-g groupfile` | Specifies a file containing a list of servers where the command is executed. Either server names or IP addresses can be used in the file. |
 | `-l userid` | Identifies the user ID for logging in to another server. The default ID is root.|
+| `-u userid` | Identifies the user ID for logging in to another server. The default ID is root.|
 | `-c command` | Specifies the command(s) to be executed. Commands containing white space must be enclosed in quotes. | 
 | `-f files` | Specifies a list of files to be transferred to the users home directory of the target servers. |
 | `-d directory` | Specifies a target directory for the `-f` option. |
