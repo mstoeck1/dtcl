@@ -28,10 +28,11 @@ files=()
 parameters=$@
 paramsize=$#
 
-while getopts l:g:h:c:f:d:ptkv? flag
+while getopts l:u:g:h:c:f:d:ptkv? flag
 do
     case "${flag}" in
         l) username=${OPTARG};;
+        u) username=${OPTARG};;
         h) IFS=',' read -r -a hosts <<< ${OPTARG};
 			for host in ${hosts[@]}; do
 				hostnames+=($host);
